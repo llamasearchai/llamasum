@@ -1,0 +1,119 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "llamasum"
+version = "0.1.0"
+description = "Advanced text summarization with hierarchical and multi-document support"
+authors = [
+    {name = "LlamaSum Team", email = "llamasum@example.com"}
+]
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Text Processing :: Linguistic"
+]
+dependencies = [
+    "torch>=1.9.0",
+    "transformers>=4.12.0",
+    "numpy>=1.20.0",
+    "nltk>=3.6.0",
+    "scikit-learn>=1.0.0",
+]
+
+[project.optional-dependencies]
+web = ["streamlit>=1.30.0"]
+api = ["fastapi>=0.104.0", "uvicorn>=0.23.2"]
+eval = ["rouge>=1.0.1", "bert-score>=0.3.12"]
+viz = ["matplotlib>=3.7.0", "pandas>=2.0.0", "seaborn>=0.12.0"]
+dev = [
+    "pytest>=6.0.0",
+    "black>=21.5b2",
+    "isort>=5.9.0",
+    "flake8>=3.9.0",
+    "mypy>=0.910",
+]
+all = ["llamasum[web,api,eval,viz,dev]"]
+
+[project.urls]
+"Homepage" = "https://github.com/llamasum/llamasum"
+"Bug Tracker" = "https://github.com/llamasum/llamasum/issues"
+"Documentation" = "https://llamasum.readthedocs.io"
+
+[project.scripts]
+llamasum = "llamasum.cli:main"
+llamasum-web = "llamasum.web_ui:run_web_ui"
+llamasum-api = "llamasum.api:start_server"
+llamasum-benchmark = "llamasum.benchmark:main"
+llamasum-viz = "llamasum.visualize:main"
+llamasum-report = "llamasum.report:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+
+[[tool.mypy.overrides]]
+module = "transformers.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "nltk.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "sklearn.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "streamlit.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "rouge.*"
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_functions = "test_*"
+python_classes = "Test*" 
