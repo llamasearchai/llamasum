@@ -3,11 +3,11 @@ requires = ["setuptools>=42", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "llamasum"
+name = "llamasum-llamasearch"
 version = "0.1.0"
 description = "Advanced text summarization with hierarchical and multi-document support"
 authors = [
-    {name = "LlamaSum Team", email = "llamasum@example.com"}
+    {name = "llamasum-llamasearch", email = "nikjois@llamasearch.ai"}
 ]
 readme = "README.md"
 requires-python = ">=3.8"
